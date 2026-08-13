@@ -2,11 +2,24 @@ const express = require("express");
 const helmet = require("helmet");
 const { rateLimit, ipKeyGenerator } = require("express-rate-limit");
 const multer = require("multer");
-const sharp = require("sharp");
+let sharp = null;
+try {
+  sharp = require("sharp");
+} catch (e) {
+  console.warn("sharp not available in this runtime:", e && e.message ? e.message : e);
+}
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
-const { DatabaseSync } = require("node:sqlite");
+let db;
+try {
+  const { DatabaseSync } = require("node:sqlite");
+  db = new DatabaseSync(path.join(DATA_DIR, "mahek.sqlite"));
+} catch (e) {
+  // Fallback to better-sqlite3 when node:sqlite is not available in the runtime
+  const BetterSqlite3 = require("better-sqlite3");
+  db = new BetterSqlite3(path.join(DATA_DIR, "mahek.sqlite"));
+}
 
 const app = express();
 const ROOT = __dirname;
@@ -554,6 +567,7 @@ const upload = multer({
 app.post("/api/admin/gallery", auth, csrf, upload.single("image"), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "Choose a JPG, PNG or WebP image." });
+    if (!sharp) return res.status(503).json({ error: "Image processing not available on this platform." });
     const filename = `${Date.now()}-${crypto.randomBytes(5).toString("hex")}.webp`;
     await sharp(req.file.buffer).rotate().resize({ width: 2200, height: 2200, fit: "inside", withoutEnlargement: true }).webp({ quality: 86 }).toFile(path.join(UPLOAD_DIR, filename));
     const info = {
