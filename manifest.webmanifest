@@ -1,0 +1,9 @@
+{
+  "name": "Mahek Photo",
+  "short_name": "Mahek",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080807",
+  "theme_color": "#080807",
+  "description": "Luxury wedding photography and cinematic films."
+}

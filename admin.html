@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Mahek Studio — Control Room</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Italiana&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <section class="login-screen" id="loginScreen">
+    <div class="login-visual">
+      <div class="login-brand"><span>MP</span><b>MAHEK <i>STUDIO</i></b></div>
+      <div><small>THE CONTROL ROOM</small><h1>Your studio,<br><em>beautifully managed.</em></h1><p>Content, clients and performance—together in one calm place.</p></div>
+      <footer>SECURE ADMINISTRATION · MAHEK PHOTO</footer>
+    </div>
+    <form class="login-card" id="loginForm">
+      <div class="mobile-brand">MP · MAHEK STUDIO</div>
+      <small>WELCOME BACK</small>
+      <h2>Sign in to continue</h2>
+      <p>Use your private studio administrator account.</p>
+      <label>Email address<input type="email" name="email" value="admin@mahekphoto.in" required autocomplete="username"></label>
+      <label>Password<div class="password-wrap"><input type="password" name="password" required autocomplete="current-password"><button type="button" class="show-pass">Show</button></div></label>
+      <button class="gold-btn" type="submit">Enter control room <span>→</span></button>
+      <div class="login-error" role="alert"></div>
+      <p class="setup-note">First local sign-in password: <code>Mahek@2026</code>. You’ll be prompted to replace it.</p>
+    </form>
+  </section>
+
+  <div class="admin-shell" id="adminShell" hidden>
+    <aside class="sidebar">
+      <div class="side-brand"><span>MP</span><b>MAHEK <i>STUDIO</i></b></div>
+      <nav>
+        <button class="active" data-view="overview"><i>⌁</i> Overview</button>
+        <button data-view="gallery"><i>□</i> Gallery</button>
+        <button data-view="bookings"><i>◷</i> Bookings</button>
+        <button data-view="services"><i>✦</i> Services</button>
+        <button data-view="packages"><i>◇</i> Packages</button>
+        <button data-view="enquiries"><i>○</i> Enquiries <em id="newEnquiryBadge">0</em></button>
+        <button data-view="security"><i>◉</i> Security</button>
+        <button data-view="settings"><i>⚙</i> Studio settings</button>
+      </nav>
+      <div class="side-bottom">
+        <a href="/" target="_blank"><span>↗</span> View live website</a>
+        <button id="logoutBtn"><span>←</span> Sign out</button>
+        <div class="admin-user"><b id="adminInitial">M</b><div><strong id="adminName">Mahek Admin</strong><small>Administrator</small></div></div>
+      </div>
+    </aside>
+
+    <header class="mobile-header"><button id="sideToggle">☰</button><b>MP · CONTROL ROOM</b><a href="/" target="_blank">↗</a></header>
+
+    <main class="admin-main">
+      <div class="password-alert" id="passwordAlert" hidden>
+        <div><b>Secure your account</b><span>Replace the temporary password before deployment.</span></div>
+        <button data-view="settings">Change password</button>
+      </div>
+
+      <section class="admin-view active" id="overviewView">
+        <div class="page-head"><div><small>STUDIO PULSE</small><h1>Good <span id="greeting">morning</span>, <em id="greetingName">Mahek.</em></h1><p>Here’s how your digital studio is performing.</p></div><div class="date-chip" id="todayDate"></div></div>
+        <div class="stat-grid">
+          <article><div><small>30-DAY REACH</small><b id="statUniques">0</b><span>Unique visitors</span></div><i>↗</i></article>
+          <article><div><small>PAGE VIEWS</small><b id="statViews">0</b><span>Last 30 days</span></div><i>◎</i></article>
+          <article><div><small>TODAY</small><b id="statToday">0</b><span>Views so far</span></div><i>◌</i></article>
+          <article class="accent"><div><small>NEW ENQUIRIES</small><b id="statEnquiries">0</b><span>Waiting for reply</span></div><i>→</i></article>
+        </div>
+        <div class="analytics-grid">
+          <article class="chart-card">
+            <div class="card-head"><div><small>REACH & ENGAGEMENT</small><h2>Last 14 days</h2></div><div class="legend"><span>● Visitors</span><span>● Views</span></div></div>
+            <div class="chart" id="reachChart"></div>
+          </article>
+          <article class="device-card">
+            <div class="card-head"><div><small>AUDIENCE</small><h2>Device mix</h2></div></div>
+            <div class="donut-wrap"><div class="donut" id="deviceDonut"><span>0<small>VISITS</small></span></div><div id="deviceLegend" class="device-legend"></div></div>
+          </article>
+        </div>
+        <div class="insight-grid">
+          <article><div class="card-head"><div><small>DISCOVERY</small><h2>Traffic sources</h2></div></div><div class="rank-list" id="sourceList"></div></article>
+          <article><div class="card-head"><div><small>INTEREST</small><h2>Most viewed pages</h2></div></div><div class="rank-list" id="pageList"></div></article>
+        </div>
+        <article class="recent-card">
+          <div class="card-head"><div><small>LIVE ACTIVITY</small><h2>Recent visits</h2></div><span class="live-dot">● LIVE</span></div>
+          <div class="table-scroll"><table><thead><tr><th>Visitor</th><th>Page</th><th>Device</th><th>Location</th><th>Source</th><th>Time</th></tr></thead><tbody id="recentVisits"></tbody></table></div>
+        </article>
+      </section>
+
+      <section class="admin-view" id="galleryView">
+        <div class="page-head"><div><small>PORTFOLIO</small><h1>Gallery <em>manager.</em></h1><p>Upload, organize and publish your latest work.</p></div><button class="gold-btn compact" id="openUpload">+ Upload new story</button></div>
+        <div class="toolbar"><div class="search"><span>⌕</span><input id="gallerySearch" placeholder="Search your gallery"></div><select id="galleryFilter"><option value="all">All categories</option><option value="weddings">Weddings</option><option value="portraits">Portraits</option><option value="films">Films</option><option value="events">Events</option></select></div>
+        <div class="gallery-admin-grid" id="galleryAdminGrid"></div>
+      </section>
+
+      <section class="admin-view" id="bookingsView">
+        <div class="page-head"><div><small>LIVE CALENDAR</small><h1>Booking <em>calendar.</em></h1><p>Confirm client requests, block busy dates and manage upcoming shoots.</p></div><span class="save-state" id="bookingSaveState"></span></div>
+        <div class="booking-admin-grid">
+          <article class="calendar-card">
+            <div class="calendar-head"><button id="prevBookingMonth" type="button">←</button><h2 id="bookingMonthLabel">Month</h2><button id="nextBookingMonth" type="button">→</button></div>
+            <div class="calendar-week"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+            <div class="admin-calendar" id="adminCalendar"></div>
+          </article>
+          <aside class="booking-side">
+            <form class="block-date-card" id="blockDateForm"><small>BLOCK DATE</small><h2>Mark unavailable</h2><label>Date<input type="date" name="date" required></label><label>Reason<input name="reason" placeholder="Wedding booked, studio closed..."></label><button class="dark-btn" type="submit">Block this date</button></form>
+            <article class="blocked-card"><small>UNAVAILABLE</small><h2>Blocked dates</h2><div id="blockedDateList"></div></article>
+          </aside>
+        </div>
+        <div class="toolbar"><div class="search"><span>⌕</span><input id="bookingSearch" placeholder="Search bookings"></div><select id="bookingFilter"><option value="all">All statuses</option><option value="pending">Pending</option><option value="confirmed">Confirmed</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></div>
+        <div class="booking-list" id="bookingList"></div>
+      </section>
+
+      <section class="admin-view" id="packagesView">
+        <div class="page-head"><div><small>PRICING</small><h1>Package <em>collections.</em></h1><p>Update names, descriptions and prices shown on your website.</p></div><span class="save-state" id="packageSaveState"></span></div>
+        <div class="package-admin-grid" id="packageAdminGrid"></div>
+      </section>
+
+      <section class="admin-view" id="servicesView">
+        <div class="page-head"><div><small>SERVICE CATALOG</small><h1>Everything you <em>offer.</em></h1><p>Edit descriptions, inclusions, prices and visibility across all services.</p></div><span class="save-state" id="serviceSaveState"></span></div>
+        <div class="toolbar"><div class="search"><span>⌕</span><input id="serviceSearch" placeholder="Search services"></div><select id="serviceAdminFilter"><option value="all">All categories</option><option>Photography</option><option>Films</option><option>Editing</option><option>Photo Printing</option><option>Documents</option></select></div>
+        <div class="service-admin-list" id="serviceAdminList"></div>
+      </section>
+
+      <section class="admin-view" id="enquiriesView">
+        <div class="page-head"><div><small>CLIENT PIPELINE</small><h1>New <em>stories.</em></h1><p>Review enquiries and move each conversation toward a booking.</p></div></div>
+        <div class="enquiry-tabs"><button class="active" data-status="all">All</button><button data-status="new">New</button><button data-status="contacted">Contacted</button><button data-status="booked">Booked</button><button data-status="closed">Closed</button></div>
+        <div class="enquiry-list" id="enquiryList"></div>
+      </section>
+
+      <section class="admin-view" id="settingsView">
+        <div class="page-head"><div><small>CONFIGURATION</small><h1>Studio <em>settings.</em></h1><p>Manage public business details and account security.</p></div></div>
+        <div class="settings-grid">
+          <form class="settings-card" id="studioForm"><small>PUBLIC INFORMATION</small><h2>Studio details</h2>
+            <label>Studio name<input name="studio_name"></label><label>Public email<input type="email" name="email"></label>
+            <label>Phone / WhatsApp<input name="phone"></label><label>Studio address<textarea name="address" rows="2"></textarea></label>
+            <label>Hero headline<input name="hero_title"></label><label>Hero description<textarea name="hero_subtitle" rows="3"></textarea></label>
+            <button class="gold-btn compact" type="submit">Save studio details</button>
+          </form>
+          <form class="settings-card" id="passwordForm"><small>ACCOUNT SECURITY</small><h2>Change password</h2>
+            <label>Current password<input type="password" name="currentPassword" required autocomplete="current-password"></label>
+            <label>New password<input type="password" name="newPassword" required autocomplete="new-password"></label>
+            <p>Minimum 10 characters, including uppercase, lowercase and a number.</p>
+            <button class="dark-btn" type="submit">Update password</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="admin-view" id="securityView">
+        <div class="page-head"><div><small>SECURITY CENTER</small><h1>Login <em>protection.</em></h1><p>Track successful sign-ins, failed attempts and active admin access.</p></div></div>
+        <div class="security-grid">
+          <article class="settings-card"><small>ACTIVE ADMIN SESSIONS</small><h2>Current access</h2><div class="security-list" id="adminSessionList"></div></article>
+          <article class="settings-card"><small>RECENT SECURITY EVENTS</small><h2>Audit trail</h2><div class="security-list" id="securityEventList"></div></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="panel-overlay" id="uploadOverlay">
+    <form class="upload-panel" id="uploadForm">
+      <button type="button" class="panel-close" id="closeUpload">×</button>
+      <small>NEW PORTFOLIO STORY</small><h2>Upload photograph</h2>
+      <label class="drop-zone" id="dropZone"><input type="file" name="image" accept="image/jpeg,image/png,image/webp" required><span>＋</span><b>Choose a photograph</b><em>JPG, PNG or WebP · Maximum 15MB</em><img alt="Upload preview"></label>
+      <label>Story title<input name="title" required placeholder="e.g. An Evening in Jaipur"></label>
+      <div class="form-two"><label>Category<select name="category"><option value="weddings">Weddings</option><option value="portraits">Portraits</option><option value="films">Films</option><option value="events">Events</option></select></label><label>Location / year<input name="location" placeholder="Jaipur · 2026"></label></div>
+      <label>Image description <small>(helps Google and accessibility)</small><input name="altText" placeholder="Describe what is visible in the photograph"></label>
+      <div class="form-two"><label>Display order<input name="sortOrder" type="number" value="0"></label><label class="check-label"><input type="checkbox" name="featured"> Feature this story</label></div>
+      <button class="gold-btn" type="submit">Upload and publish <span>↑</span></button>
+    </form>
+  </div>
+  <div class="admin-toast" role="status"></div>
+  <script src="admin.js"></script>
+</body>
+</html>

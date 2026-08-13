@@ -1,0 +1,19 @@
+{
+  "name": "mahek-photo-studio",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Mahek Photo luxury studio website and admin dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "multer": "^2.0.2",
+    "serverless-http": "^4.0.0",
+    "sharp": "^0.34.3"
+  }
+}
