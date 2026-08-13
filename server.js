@@ -13,7 +13,6 @@ const fs = require("fs");
 const path = require("path");
 const { DatabaseSync } = require("node:sqlite");
 const app = express();
-const db = new DatabaseSync(path.join(DATA_DIR, "mahek.sqlite"));
 const ROOT = __dirname;
 const DATA_DIR = path.join(ROOT, "data");
 const UPLOAD_DIR = path.join(ROOT, "uploads");
