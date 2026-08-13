@@ -11,17 +11,9 @@ try {
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
-let db;
-try {
-  const { DatabaseSync } = require("node:sqlite");
-  db = new DatabaseSync(path.join(DATA_DIR, "mahek.sqlite"));
-} catch (e) {
-  // Fallback to better-sqlite3 when node:sqlite is not available in the runtime
-  const BetterSqlite3 = require("better-sqlite3");
-  db = new BetterSqlite3(path.join(DATA_DIR, "mahek.sqlite"));
-}
-
+const { DatabaseSync } = require("node:sqlite");
 const app = express();
+const db = new DatabaseSync(path.join(DATA_DIR, "mahek.sqlite"));
 const ROOT = __dirname;
 const DATA_DIR = path.join(ROOT, "data");
 const UPLOAD_DIR = path.join(ROOT, "uploads");
